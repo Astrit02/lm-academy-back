@@ -59,24 +59,24 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeSelectSomeUserData($query){
-        return $query->select('users_id', 'first_name', 'last_name', 'gender', 'email', 'image');
+    public function scopeSelectSomeUserData($query)
+    {
+        return $query->select('id', 'first_name', 'last_name', 'gender', 'email', 'image');
     }
 
-    public function scopeSelectUserName($query){
-        return $query->select('users_id', 'first_name', 'last_name');
+    public function scopeSelectUserName($query)
+    {
+        return $query->select('id', 'first_name', 'last_name');
     }
 
-    public function UserInfo() {
+    public function userInfo()
+    {
         return $this->hasOne(UserInfo::class, 'user_id');
     }
 
-    public function list() {
-        return $this->belongsToMany(UserList::class, 'User_list_items', 'user_id', 'list_id')->withTimestamps();
-    }
 
-    public function scoreOnScoreboard(){
-        return $this->hasOne(Scoreboard::class, 'user_id');
+    public function scoreOnScoreboard() {
+        return $this->hasMany(Scoreboard::class, 'user_id');
     }
 
     public function createdCourses() {
@@ -85,5 +85,13 @@ class User extends Authenticatable
     
     public function updatedCourses() {
         return $this->hasMany(Course::class, 'updated_by');
+    }
+
+    public function createdCourseMaterials() {
+        return $this->hasMany(CourseMaterial::class, 'created_by');
+    }
+
+    public function updatedCourseMaterials() {
+        return $this->hasMany(CourseMaterial::class, 'updated_by');
     }
 }

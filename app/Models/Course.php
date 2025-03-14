@@ -26,4 +26,8 @@ class Course extends Model
     public function updatedBy () {
         return $this->belongsTo(User::class, 'updated_by')->selectUserName();
     }
-}
+
+    public function modules () {
+        return $this->hasMany(CourseModule::class, 'course_id');
+    }
+} 
