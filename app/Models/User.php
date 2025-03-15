@@ -10,11 +10,12 @@ use App\Models\UserInfo;
 use App\Models\UserList;
 use App\Models\Scoreboard;
 use App\Models\Course;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -94,4 +95,5 @@ class User extends Authenticatable
     public function updatedCourseMaterials() {
         return $this->hasMany(CourseMaterial::class, 'updated_by');
     }
+
 }
